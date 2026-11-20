@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: satyajeet-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: satyajeet-app
+  template:
+    metadata:
+      labels:
+        app: satyajeet-app
+    spec:
+      containers:
+      - name: satyajeet-container
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: satyajeet-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: satyajeet-app
